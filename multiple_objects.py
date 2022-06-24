@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 import time
 TrDict = {'csrt': cv2.legacy.TrackerCSRT_create,
-         'kcf' : cv2.TrackerKCF_create,
-         'mil': cv2.TrackerMIL_create,
+         'kcf' : cv2.legacy.TrackerKCF_create,
+         'mil': cv2.legacy.TrackerMIL_create,
          }
 trackers = cv2.legacy.MultiTracker_create()
 video_path = 'C:\\Users\\Smrithika\\dataset12.mp4'
