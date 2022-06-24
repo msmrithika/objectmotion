@@ -1,10 +1,10 @@
 import numpy as np
 import cv2
 import time
-video_path = 'C:\\Users\\Smrithika\\dataset6.mp4'
+video_path = 'C:\\Users\\Smrithika\\dataset7.mp4'
 #cap = cv2.VideoCapture(0,cv2.CAP_DSHOWS)
 cap = cv2.VideoCapture(video_path)
-fgbg = cv2.createBackgroundSubtractorKNN(1000, 400, False)	
+fgbg = cv2.createBackgroundSubtractorKNN(500, 400, False)	
 number_of_white_pix_beg=0
 count=0
 while(1):
@@ -30,25 +30,23 @@ while(1):
     for i in range(len(cntrs)):
         hull.append(cv2.convexHull(cntrs[i], False))
     for i in range(len(cntrs)):
-        color = 255
+        color = (255, 0, 0)
         cv2.drawContours(morph, hull, i, color, -1, 8)
-    contours,hierarchy = cv2.findContours(morph, 1, 2)    
-    for cnt in contours:
-        x,y,w,h = cv2.boundingRect(cnt)
-        print(w)
-        print(h)
-        morph = cv2.rectangle(morph,(x,y),(x+w,y+h),255,2)
-        if count==5:
-            number_of_white_pix_beg = np.sum(morph[x:x+w,y:y+h] == 255) 
-        if count>5 :   
-            number_of_white_pix = np.sum(morph[x:x+w,y:y+h] == 255)
-    count+=1
+    
+    if count==5:
+        number_of_white_pix_beg = np.sum(morph == 255) 
+    count+=1     
+    number_of_white_pix = np.sum(morph == 255)
+   
     cv2.imshow('frame',morph)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
    
 if number_of_white_pix_beg>number_of_white_pix:
-   print('receding')
+    print('receding')
 else: print('approaching')
 cap.release()
 cv2.destroyAllWindows()
+© 2022 GitHub, Inc.
+Terms
+Privacy
